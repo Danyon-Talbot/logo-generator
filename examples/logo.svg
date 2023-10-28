@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="300" height="200">
 
-  <polygon points="150,50 100,150 200,150" fill="Pink" />
+    <circle cx="150" cy="100" r="100" fill="Blue" />
 
-  <text x="150" y="125" font-size="60" text-anchor="middle" fill="Blue">DJ</text>
+    <text x="150" y="125" font-size="60" text-anchor="middle" fill="Red">DJT</text>
 
 </svg>
