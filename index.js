@@ -28,16 +28,22 @@ async function main() {
     },
   ]);
 
+  // Pushes all inputs into one variable
   const { shapeColor, textContent, textColor, shape } = userInput;
 
   let shapeInstance;
   switch (shape.toLowerCase()) {
+    // If circle was chose, assigns inputed colour, text colour, and text content
     case 'circle':
       shapeInstance = new Circle(shapeColor, textColor, textContent);
       break;
+
+    // If triangle was chose, assigns inputed colour, text colour, and text content
     case 'triangle':
       shapeInstance = new Triangle(shapeColor, textColor, textContent);
       break;
+
+    // If square was chose, assigns inputed colour, text colour, and text content
     case 'square':
       shapeInstance = new Square(shapeColor, textColor, textContent);
       break;
