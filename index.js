@@ -1,13 +1,13 @@
 const fs = require('fs');
 const inquirer = require('inquirer');
-const { circleTemplate, triangleTemplate, squareTemplate } = require('./lib/shapes'); // Import your shape templates
+const { Circle, Triangle, Square } = require('./lib/shapes'); // Import your shape classes
 
 async function main() {
   const userInput = await inquirer.prompt([
     {
       type: 'input',
       message: 'Enter Three Initials:',
-      name: 'textContent', // Change 'text' to 'textContent' to match the template variable
+      name: 'textContent',
       validate: (input) => input.length <= 3,
     },
     {
@@ -30,35 +30,29 @@ async function main() {
 
   const { shapeColor, textContent, textColor, shape } = userInput;
 
-  let svgTemplate;
+  let shapeInstance;
   switch (shape.toLowerCase()) {
     case 'circle':
-      svgTemplate = circleTemplate;
+      shapeInstance = new Circle(shapeColor, textColor, textContent);
       break;
     case 'triangle':
-      svgTemplate = triangleTemplate;
+      shapeInstance = new Triangle(shapeColor, textColor, textContent);
       break;
     case 'square':
-      svgTemplate = squareTemplate;
+      shapeInstance = new Square(shapeColor, textColor, textContent);
       break;
     default:
       console.error('Invalid shape choice');
       return;
   }
 
-  const svgData = svgTemplate
-    .replace('{{shapeColor}}', shapeColor)
-    .replace('{{textContent}}', textContent)
-    .replace('{{textColor}}', textColor);
+  // Generate the SVG data using the shape instance
+  const svgData = shapeInstance.render();
 
   // Save the SVG data to a file
-    const filePath = './examples/logo.svg'; // Specify the path to the "examples" folder
-    const writeFilePromise = new Promise((resolve, reject) => {
-        fs.writeFile(filePath, svgData, (err) =>
-        err ? console.error(err) : console.log('SAVED!'));
-    })
-    return writeFilePromise;
-
+  const filePath = './examples/logo.svg'; // Specify the path to the "examples" folder
+  fs.writeFileSync(filePath, svgData, 'utf-8');
+  console.log('Generated logo.svg');
 }
 
 main();
